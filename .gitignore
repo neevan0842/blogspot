@@ -1,0 +1,5 @@
+venv
+/frontend/node_modules
+/frontend/dist
+/frontend/*.local
+/backend/db.sqlite3
