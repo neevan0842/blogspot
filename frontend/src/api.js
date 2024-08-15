@@ -1,15 +1,15 @@
 import axios from "axios";
 import { ACCESS_TOKEN } from "./constants";
 
-const apiUrl = "http://139.59.68.123";
-
-const api = axios.create({
-  baseURL: apiUrl,
-});
+// const apiUrl = "http://139.59.68.123";
 
 // const api = axios.create({
-//   baseURL: import.meta.env.VITE_API_URL ,
+//   baseURL: apiUrl,
 // });
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
 api.interceptors.request.use(
   (config) => {
