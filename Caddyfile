@@ -1,0 +1,10 @@
+blogspotapi.mine.bz {
+	reverse_proxy backend:8000
+	encode gzip
+}
+
+blogspot.mine.bz {
+	root * /srv
+	encode gzip
+	file_server
+}
