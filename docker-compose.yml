@@ -1,4 +1,4 @@
-version: "3.0"
+version: "3.5"
 services:
   # Backend service
   backend:
@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     expose:
       - "8000" # Internal port to expose the backend service to other containers
-    ports:
-      - "8000:8000" # External port to expose the backend service to the host machine
     networks:
       - app_network
     restart: always # Restart policy for production stability
@@ -38,8 +36,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: "http://localhost:8000/"
-        # VITE_API_URL: "https://blogspotapi.mine.bz/"
+        # VITE_API_URL: "http://localhost:8000/"
+        VITE_API_URL: "https://blogspotapi.mine.bz/"
     volumes:
       - dist:/app/dist # Persist the frontend build
     networks:

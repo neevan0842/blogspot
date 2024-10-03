@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main # Adjust if you're using a different branch
-  # pull_request:
-  #   branches:
-  #     - main # Adjust if you're using a different branch
+  pull_request:
+    branches:
+      - main # Adjust if you're using a different branch
 
 jobs:
   deploy:
@@ -32,6 +32,6 @@ jobs:
             git pull origin main
             docker-compose down
             docker-compose up -d --build
-            # docker-compose exec backend python manage.py makemigrations
-            # docker-compose exec backend python manage.py migrate
+            docker-compose exec backend python manage.py makemigrations
+            docker-compose exec backend python manage.py migrate
           EOF
