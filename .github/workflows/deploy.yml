@@ -3,36 +3,26 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - main # Adjust if you're using a different branch
-  pull_request:
-    branches:
-      - main # Adjust if you're using a different branch
+      - main
 
 jobs:
   deploy:
+    name: deploy
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the latest code
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Step 2: Add SSH key for secure connection
-      - name: Add SSH key
-        uses: shimataro/ssh-key-action@v2
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.VPS_HOST }}
-
-      # Step 3: SSH into the VPS and deploy the latest code
-      - name: Deploy to VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} -p ${{ secrets.VPS_PORT }} << 'EOF'
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
             cd ~/blogspot
             git pull origin main
             docker-compose down
             docker-compose up -d --build
-          EOF
+            docker image prune -f
+            docker container prune -f
 
 # run these manually on server
 # docker-compose exec backend python manage.py makemigrations
