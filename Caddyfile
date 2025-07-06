@@ -7,4 +7,7 @@ blogspot.mine.bz {
 	root * /srv
 	encode gzip
 	file_server
+
+	# Serve index.html for unknown routes (React SPA Fix)
+    try_files {path} /index.html
 }
